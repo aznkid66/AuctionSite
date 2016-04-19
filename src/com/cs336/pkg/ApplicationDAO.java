@@ -29,7 +29,7 @@ public class ApplicationDAO {
 		}
 		try {
 			// TODO: password
-			connection = DriverManager.getConnection(connectionUrl,"root", "");
+			connection = DriverManager.getConnection(connectionUrl,"root", "woohoo");
 			//connection = DriverManager.getConnection(connectionUrl,"root", "GimGamGam99");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
