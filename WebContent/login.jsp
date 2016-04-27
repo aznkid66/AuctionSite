@@ -13,7 +13,7 @@ if (userid.equals("admin")) {
 		session.setAttribute("userid", userid);
 		//out.println("welcome " + userid);
 		//out.println("<a href='logout.jsp'>Log out</a>");
-		response.sendRedirect("success.jsp");
+		response.sendRedirect("admin.jsp");
 	}
 } else {
 	rs = st.executeQuery("select * from CustomerRep cr where cr.username='" + userid + "' and cr.password='" + pwd + "'");
