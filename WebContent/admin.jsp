@@ -7,6 +7,7 @@ You are not logged in<br/>
 %>
 Welcome Admin
 <a href='logout.jsp'>Log out</a>
+<a href='custrepcreatepage.jsp'>Make a new Customer Rep account</a>
 <%
 	}
 %>
