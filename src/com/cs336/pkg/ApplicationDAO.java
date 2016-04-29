@@ -10,9 +10,7 @@ import java.util.LinkedList;
 public class ApplicationDAO {
 
 	public Connection getConnection(){
-		//String connectionUrl = "jdbc:mysql://localhost:3306/myDB?autoReconnect=true";
-		String connectionUrl = "jdbc:mysql://localhost:3306/myDB?autoReconnect=true";
-		//String connectionUrl = "jdbc:mysql://classvm115.cs.rutgers.edu:3306/myDB?autoReconnect=true";
+		String connectionUrl = "jdbc:mysql://localhost:3306/myDB";
 		Connection connection = null;
 		
 		try {
@@ -29,7 +27,7 @@ public class ApplicationDAO {
 		}
 		try {
 			// TODO: password
-			connection = DriverManager.getConnection(connectionUrl,"root", "woohoo");
+			connection = DriverManager.getConnection(connectionUrl,"root", "BecauseCBC2");
 			//connection = DriverManager.getConnection(connectionUrl,"root", "GimGamGam99");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -49,7 +47,7 @@ public class ApplicationDAO {
 		}
 	}
 	
-	public void insertPerson() throws SQLException{
+	/*public void insertPerson() throws SQLException{
 		
 		String insertString = "insert into Person values(115, \"Borgida\",  \"Alex\");";
 		
@@ -64,14 +62,14 @@ public class ApplicationDAO {
 		dbConnection.close();
 		
 		
-	}
+	}*/
 	
-	public LinkedList<Person> getAllPeople() throws SQLException{
+	public LinkedList<Auction> getAuctions() throws SQLException{
 		
-		LinkedList<Person> listOfPeople = new LinkedList<Person>();
+		LinkedList<Auction> listOfAuctions = new LinkedList<Auction>();
 		
 		//display all tuples
-		String selectString = "select * from Person;";
+		String selectString = "select * from Auction;";
 		Connection dbConnection = getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
 		int resLength = 0;
@@ -79,9 +77,9 @@ public class ApplicationDAO {
 		
 		//creating a ResultSet
 		while(rs.next( )) {
-			System.out.println("row : id = " + rs.getInt("PersonID") + ", first name = " + rs.getString("FirstName") );
+			//System.out.println("row : id = " + rs.getInt("AId") + ", first name = " + rs.getString("FirstName") );
 			resLength++;
-			listOfPeople.add(new Person(rs.getInt("PersonID"), rs.getString("FirstName"), rs.getString("LastName")));
+			listOfAuctions.add(new Auction(rs.getInt("PersonID"),rs.getInt("Skin"), rs.getInt("Seller"), rs.getDate("endDate"), rs.getDouble("currentPrice")));
 		}
 		System.out.println("Select statement executed, " + resLength + " rows retrieved");
 		
@@ -89,7 +87,30 @@ public class ApplicationDAO {
 		preparedStatement.close();
 		dbConnection.close();
 		
-		return listOfPeople;
+		return listOfAuctions;
+	}
+	
+	public Skin getSkin(int skinId) throws SQLException{ 
+		Skin s = null;
+		String selectString = "select * from Skin where Sid = " + skinId + ";";
+		
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery(); 
+		
+		while(rs.next()) {
+			resLength++;
+			s = new Skin(rs.getInt("Sid"), rs.getString("name"), rs.getString("Rarity"), rs.getString("Theme"), rs.getString("Champion"));
+		}
+		
+		System.out.println("Select statement executed, " + resLength + " rows retrieved");
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		
+		return s;
 	}
 	
 	
@@ -99,12 +120,12 @@ public class ApplicationDAO {
 		
 		System.out.println(connection);
 		
-		try {
-			dao.insertPerson();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			dao.insertPerson();
+//		} catch (SQLException e) {
+//			 TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		/*try {
 			dao.insertPerson();
