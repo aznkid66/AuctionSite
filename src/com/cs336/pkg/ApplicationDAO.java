@@ -79,7 +79,7 @@ public class ApplicationDAO {
 		while(rs.next( )) {
 			//System.out.println("row : id = " + rs.getInt("AId") + ", first name = " + rs.getString("FirstName") );
 			resLength++;
-			listOfAuctions.add(new Auction(rs.getInt("PersonID"),rs.getInt("Skin"), rs.getInt("Seller"), rs.getDate("endDate"), rs.getDouble("currentPrice")));
+			listOfAuctions.add(new Auction(rs.getInt("Aid"),rs.getInt("Skin"), rs.getInt("Seller"), rs.getDate("endDate"), rs.getDouble("currPrice")));
 		}
 		System.out.println("Select statement executed, " + resLength + " rows retrieved");
 		
@@ -92,7 +92,7 @@ public class ApplicationDAO {
 	
 	public Skin getSkin(int skinId) throws SQLException{ 
 		Skin s = null;
-		String selectString = "select * from Skin where Sid = " + skinId + ";";
+		String selectString = "select * from Skin s where s.Sid = " + skinId + ";";
 		
 		Connection dbConnection = getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);

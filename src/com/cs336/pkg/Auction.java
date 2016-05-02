@@ -21,6 +21,14 @@ public class Auction {
 		return sellerId;
 	}
 	
+	public int getSkinId() {
+		return skinId;
+	}
+	
+	public int getAuctionId() {
+		return auctionId;
+	}
+	
 	public Date getDate() {
 		return endDate;
 	}
