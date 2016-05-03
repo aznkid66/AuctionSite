@@ -115,7 +115,7 @@ public class ApplicationDAO {
 	
 	public User getUser (int userId) throws SQLException {
 		User u = null;
-		String selectString = "select * from User u where u.Uid = " + userId + ";";
+		String selectString = "select * from User u where u.Userid = " + userId + ";";
 		
 		Connection dbConnection = getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
