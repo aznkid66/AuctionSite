@@ -2,7 +2,7 @@
 <%
 	//String skinName = request.getParameter("skinName");
 	//String champName = request.getParameter("champName");
-	int skinId = request.getParameter("auctionSkin");
+	int skinId = Integer.parseInt(request.getParameter("auctionSkin"));
 	Date endDate = request.getParameter("endDate");
 	String price = request.getParameter("price");
 	Class.forName("com.mysql.jdbc.Driver");
