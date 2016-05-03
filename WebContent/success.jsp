@@ -30,11 +30,13 @@
 		
 		<% for (int i=0; i<listOfAuctions.size();i++){ 
 			Skin s = dao.getSkin(listOfAuctions.get(i).getSkinId()); 
-			User u = dao.getUser(listOfAuctions.get(i).getSellerId()); %>
+			User u = dao.getUser(listOfAuctions.get(i).getSellerId()); 
+			String timeRemaining = dao.getTimeRemaining(i);%>
 		<tr> 
 			<td><%= listOfAuctions.get(i).getAuctionId() %></td> 
 			<td><%= s.getName() %></td> 
-			<td><%= u.getUsername() %>
+			<td><%= u.getUsername() %></td>
+			<td><% out.write(timeRemaining); %></td>
 		</tr>
 		<%} %> 
 	</table> 

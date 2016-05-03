@@ -136,7 +136,7 @@ public class ApplicationDAO {
 	
 	public String getTimeRemaining (int auctionId) throws SQLException {
 		int days = 0;
-		String t = null;
+		String t = "BLAH";
 		String selectString = "select TIMESTAMPDIFF(DAY, NOW(), a.endDate) from Auction a where"
 				+ " a.aid = " + auctionId + ";";
 		
@@ -147,11 +147,11 @@ public class ApplicationDAO {
 		
 		while(rs.next()) {
 			resLength++;
-			days = rs.getInt("select TIMESTAMPDIFF(DAY, NOW(), a.endDate) from Auction a where"
-				+ " a.aid = " + auctionId + ";");
+			t = rs.getString("TIMESTAMPDIFF(DAY, NOW(), a.endDate)");
+			System.out.println(t);
 		}
 		
-		if (days == 1) {
+		/*if (days == 1) {
 			selectString = "select sec_to_time(TIMESTAMPDIFF(SECOND, NOW(), a.endDate)) from Auction a where"
 					+ " a.aid = " + auctionId + ";";
 			
@@ -165,11 +165,12 @@ public class ApplicationDAO {
 			}
 		} else {
 			t = days + " days";
-		}
+		}*/
 		
 		//close everything
 		preparedStatement.close();
 		dbConnection.close();
+		//t = days + " days";
 		return t;
 	}
 	
