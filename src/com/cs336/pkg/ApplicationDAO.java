@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 
 public class ApplicationDAO {
@@ -79,7 +80,7 @@ public class ApplicationDAO {
 		while(rs.next( )) {
 			//System.out.println("row : id = " + rs.getInt("AId") + ", first name = " + rs.getString("FirstName") );
 			resLength++;
-			listOfAuctions.add(new Auction(rs.getInt("Aid"),rs.getInt("Skin"), rs.getInt("Seller"), rs.getDate("endDate"), rs.getDouble("currPrice")));
+			listOfAuctions.add(new Auction(rs.getInt("Aid"),rs.getInt("Skin"), rs.getInt("Seller"), rs.getTimestamp("endDate"), rs.getDouble("currPrice")));
 		}
 		System.out.println("Select statement executed, " + resLength + " rows retrieved");
 		
@@ -135,10 +136,9 @@ public class ApplicationDAO {
 	}
 	
 	public String getTimeRemaining (int auctionId) throws SQLException {
-		int days = 0;
-		String t = "BLAH";
-		String selectString = "select TIMESTAMPDIFF(DAY, NOW(), a.endDate) from Auction a where"
-				+ " a.aid = " + auctionId + ";";
+		Timestamp t = null;
+		String selectString = "select a.endDate from Auction a where"
+			+ " a.aid = " + auctionId + ";";
 		
 		Connection dbConnection = getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
@@ -147,29 +147,31 @@ public class ApplicationDAO {
 		
 		while(rs.next()) {
 			resLength++;
-			days = rs.getInt("TIMESTAMPDIFF(DAY, NOW(), a.endDate)");
+			t = rs.getTimestamp(1);
 		}
 		
-		/*if (days == 1) {
-			selectString = "select sec_to_time(TIMESTAMPDIFF(SECOND, NOW(), a.endDate)) from Auction a where"
-					+ " a.aid = " + auctionId + ";";
-			
-			preparedStatement = dbConnection.prepareStatement(selectString);
-			resLength = 0;
-			rs = preparedStatement.executeQuery(); 
-			
-			while(rs.next()) {
-				t= rs.getString("select sec_to_time(TIMESTAMPDIFF(SECOND, NOW(), a.endDate)) from Auction a where"
-					+ " a.aid = " + auctionId + ";");
-			}
-		} else {
-			t = days + " days";
-		}*/
+		Timestamp now = getNOW();		
+		
 		
 		//close everything
 		preparedStatement.close();
 		dbConnection.close();
-		t = days + " days";
+		//t = days + " days";
+		return "";
+	}
+	
+	public Timestamp getNOW() throws SQLException {
+		Timestamp t = null;
+		String selectString = "select NOW()";
+		
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		ResultSet rs = preparedStatement.executeQuery(); 
+		
+		while(rs.next()) {
+			t = rs.getTimestamp(1);
+		}
+		
 		return t;
 	}
 	
