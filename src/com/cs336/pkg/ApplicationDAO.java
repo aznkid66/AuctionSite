@@ -124,7 +124,7 @@ public class ApplicationDAO {
 		
 		while(rs.next()) {
 			resLength++;
-			u = new User(rs.getInt("userid"), rs.getString("email"), rs.getString("user"));
+			u = new User(rs.getInt("userid"), rs.getString("email"), rs.getString("username"));
 		}
 		
 		//close everything
