@@ -14,6 +14,7 @@
 	%>
 	Welcome <%=session.getAttribute("userid")%>
 	<a href='logout.jsp'>Log out</a>
+	<a href='createauction.jsp'>Create Auction</a>
 	<%
 		}
 	%>
@@ -25,19 +26,16 @@
 			<th>ID</th> 
 			<th>Skin Name</th> 
 			<th>User</th> 
-			<th>Time remaining</th>
 		</tr> 	
 		<% LinkedList<Auction> listOfAuctions =dao.getAuctions();%>
 		
 		<% for (int i=0; i<listOfAuctions.size();i++){ 
 			Skin s = dao.getSkin(listOfAuctions.get(i).getSkinId()); 
-			User u = dao.getUser(listOfAuctions.get(i).getSellerId()); 
-			%>
+			User u = dao.getUser(listOfAuctions.get(i).getSellerId()); %>
 		<tr> 
+			<td><%= listOfAuctions.get(i).getAuctionId() %></td> 
 			<td><%= s.getName() %></td> 
-			<td><%= u.getUsername() %></td>
-			<td><%= listOfAuctions.get(i).getFormattedDate() %></td> 
-			<td><%= listOfAuctions.get(i).getTimeDifference(dao.getNOW()) %>
+			<td><%= u.getUsername() %>
 		</tr>
 		<%} %> 
 	</table> 
