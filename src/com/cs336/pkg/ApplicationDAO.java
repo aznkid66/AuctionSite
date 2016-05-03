@@ -113,6 +113,66 @@ public class ApplicationDAO {
 		return s;
 	}
 	
+	public User getUser (int userId) throws SQLException {
+		User u = null;
+		String selectString = "select * from User u where u.Uid = " + userId + ";";
+		
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery(); 
+		
+		while(rs.next()) {
+			resLength++;
+			u = new User(rs.getInt("userid"), rs.getString("email"), rs.getString("user"));
+		}
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		
+		return u;
+	}
+	
+	public String getTimeRemaining (int auctionId) throws SQLException {
+		int days = 0;
+		String t = null;
+		String selectString = "select TIMESTAMPDIFF(DAY, NOW(), a.endDate) from Auction a where"
+				+ " a.aid = " + auctionId + ";";
+		
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery(); 
+		
+		while(rs.next()) {
+			resLength++;
+			days = rs.getInt("select TIMESTAMPDIFF(DAY, NOW(), a.endDate) from Auction a where"
+				+ " a.aid = " + auctionId + ";");
+		}
+		
+		if (days == 1) {
+			selectString = "select sec_to_time(TIMESTAMPDIFF(SECOND, NOW(), a.endDate)) from Auction a where"
+					+ " a.aid = " + auctionId + ";";
+			
+			preparedStatement = dbConnection.prepareStatement(selectString);
+			resLength = 0;
+			rs = preparedStatement.executeQuery(); 
+			
+			while(rs.next()) {
+				t= rs.getString("select sec_to_time(TIMESTAMPDIFF(SECOND, NOW(), a.endDate)) from Auction a where"
+					+ " a.aid = " + auctionId + ";");
+			}
+		} else {
+			t = days + " days";
+		}
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		return t;
+	}
+	
 	
 	public static void main(String[] args) {
 		ApplicationDAO dao = new ApplicationDAO();

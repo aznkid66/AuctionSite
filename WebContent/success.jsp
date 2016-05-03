@@ -23,16 +23,18 @@
 	<table> 
 		<tr> 
 			<th>ID</th> 
-			<th>FirstName</th> 
-			<th>LastName</th> 
+			<th>Skin Name</th> 
+			<th>User</th> 
 		</tr> 	
 		<% LinkedList<Auction> listOfAuctions =dao.getAuctions();%>
 		
 		<% for (int i=0; i<listOfAuctions.size();i++){ 
-			Skin s = dao.getSkin(listOfAuctions.get(i).getSkinId()); %>
+			Skin s = dao.getSkin(listOfAuctions.get(i).getSkinId()); 
+			User u = dao.getUser(listOfAuctions.get(i).getSellerId()); %>
 		<tr> 
 			<td><%= listOfAuctions.get(i).getAuctionId() %></td> 
 			<td><%= s.getName() %></td> 
+			<td><%= u.getUsername() %>
 		</tr>
 		<%} %> 
 	</table> 
