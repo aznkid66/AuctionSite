@@ -37,13 +37,40 @@
 			  <option value="user">User</option>
 			</select>
 			<select name="skin">
-			<% %>
+			<%
+				rs = st.executeQuery("select sid, name from Skin");
+				while (rs.next()) {
+					out.write("<option value=");
+					out.write(""+'"'+rs.getInt("sid")+'"');
+					out.write(">");
+					out.write(rs.getString("name"));
+					out.write("</option>");
+				}
+			%>
 			</select>
 			<select name="rarity" style="display:none">
-			<% %>
+			<% 	
+				rs = st.executeQuery("select distinct rarity from Skin");
+				while (rs.next()) {
+					out.write("<option value=");
+					out.write('"' + rs.getString("rarity") + '"');
+					out.write(">");
+					out.write(rs.getString("rarity"));
+					out.write("</option>");
+				}
+			%>
 			</select>
 			<select name="champion" style="display:none">
-			<% %>
+			<% 
+				rs = st.executeQuery("select distinct champion from Skin");
+				while (rs.next()) {
+					out.write("<option value=");
+					out.write('"' + rs.getString("champion") + '"');
+					out.write(">");
+					out.write(rs.getString("champion"));
+					out.write("</option>");
+				}
+			%>
 			</select>
 			<select name="user" style="display:none">
 			<% 
