@@ -31,7 +31,7 @@
                         <td><input type="reset" value="Reset" /></td>
                     </tr>
                     <tr>
-                        <td colspan="2">Already created!! <a href="index.jsp">Login Here</a></td>
+                        <td colspan="2">Already created!! <a href="admin.jsp">Back to Admin Home</a></td>
                     </tr>
                 </tbody>
             </table>
