@@ -124,7 +124,7 @@ public class ApplicationDAO {
 		
 		while(rs.next()) {
 			resLength++;
-			u = new User(rs.getInt("userid"), rs.getString("email"), rs.getString("username"));
+			u = new User(rs.getInt("userid"), rs.getString("username"), rs.getString("email"));
 		}
 		
 		//close everything
@@ -147,8 +147,7 @@ public class ApplicationDAO {
 		
 		while(rs.next()) {
 			resLength++;
-			t = rs.getString("TIMESTAMPDIFF(DAY, NOW(), a.endDate)");
-			System.out.println(t);
+			days = rs.getInt("TIMESTAMPDIFF(DAY, NOW(), a.endDate)");
 		}
 		
 		/*if (days == 1) {
@@ -170,7 +169,7 @@ public class ApplicationDAO {
 		//close everything
 		preparedStatement.close();
 		dbConnection.close();
-		//t = days + " days";
+		t = days + " days";
 		return t;
 	}
 	
