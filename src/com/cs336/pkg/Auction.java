@@ -47,12 +47,20 @@ public class Auction {
 		long milliseconds1 = now.getTime();
 		long milliseconds2 = endDate.getTime();
 
-		  long diff = milliseconds2 - milliseconds1;
-		  long diffSeconds = diff / 1000;
-		  long diffMinutes = diff / (60 * 1000);
-		  long diffHours = diff / (60 * 60 * 1000);
-		  long diffDays = diff / (24 * 60 * 60 * 1000);
-
-		  return diffDays + " days" + ", " + diffHours + " hours";
+		long diff = milliseconds2 - milliseconds1;
+		long diffSeconds = diff / 1000 % 60;
+		long diffMinutes = diff / (60 * 1000) % 60;
+		long diffHours = diff / (60 * 60 * 1000) % 24;
+		long diffDays = diff / (24 * 60 * 60 * 1000);
+		if (diffDays == 0) {
+			if (diffHours == 0) {
+				if (diffMinutes == 0) {
+					return diffSeconds + " seconds";
+				}
+				return diffMinutes + " minutes, " + diffSeconds + " seconds";
+			}
+			return diffHours + " hours, " + diffMinutes + " minutes";
+		}
+			return diffDays + " days" + ", " + diffHours + " hours";
 	}
 }

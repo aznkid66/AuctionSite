@@ -23,9 +23,9 @@
 	<% ApplicationDAO dao = new ApplicationDAO();%>	
 	<table> 
 		<tr> 
-			<th>ID</th> 
 			<th>Skin Name</th> 
 			<th>User</th> 
+			<th>Time Remaining</th>
 		</tr> 	
 		<% LinkedList<Auction> listOfAuctions =dao.getAuctions();%>
 		
@@ -33,9 +33,9 @@
 			Skin s = dao.getSkin(listOfAuctions.get(i).getSkinId()); 
 			User u = dao.getUser(listOfAuctions.get(i).getSellerId()); %>
 		<tr> 
-			<td><%= listOfAuctions.get(i).getAuctionId() %></td> 
 			<td><%= s.getName() %></td> 
-			<td><%= u.getUsername() %>
+			<td><%= u.getUsername() %> </td>
+			<td><%= listOfAuctions.get(i).getTimeDifference(dao.getNOW()) %>
 		</tr>
 		<%} %> 
 	</table> 
