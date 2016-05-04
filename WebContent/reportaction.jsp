@@ -41,7 +41,7 @@
 							+ "	SELECT aid FROM AUCTION "
 							+ "	WHERE TIMESTAMPDIFF(Second, NOW(), endDate) < 0);");
 					if (rs.next()) {
-						out.write("$" + rs.getDouble(1) + ":<br/>");
+						out.write("$" + rs.getDouble(1) + "<br/>");
 					}
 				} else if (xType.equals("rarity")) {
 					out.write("rarity " + x + "<br/>");

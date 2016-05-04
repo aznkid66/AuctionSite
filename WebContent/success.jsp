@@ -23,7 +23,7 @@
 	<% ApplicationDAO dao = new ApplicationDAO();%>	
 	<table> 
 		<tr>
-			<select id="sortBy">
+			<select id="sortBy" onchange=>
 				<option value="1">Current Price (High to Low)</option>
 				<option value="2">Current Price (Low to High)</option>
 				<option value="3">Skins (A to Z)</option>

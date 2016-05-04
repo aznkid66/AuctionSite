@@ -1,17 +1,20 @@
 <%@ page import ="java.sql.*" %>
 <%@ page import ="java.text.*" %>
+<%@ page import ="java.util.*" %>
 <%
 	//String skinName = request.getParameter("skinName");
 	//String champName = request.getParameter("champName");
-	int skinId = Integer.parseInt(request.getParameter("auctionSkin"));
+	//System.out.println(request.getParameter("auctionSkin"));
+	String skinId = request.getParameter("auctionSkin");
 	String endDate = request.getParameter("endDate");
 	String endTime = request.getParameter("endTime");
 	String price = request.getParameter("price");
+	String seller = (String)session.getAttribute("id");
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDB",
 												"root", "BecauseCBC2");
 	String dateTime = endDate + " " + endTime;
-	SimpleDateFormat sdf = new SimpleDateFormat("YYYY/mm/dd HH:mm");
+	SimpleDateFormat sdf = new SimpleDateFormat("YYYY-mm-dd HH:mm");
 	java.util.Date dateFormat = sdf.parse(dateTime);
 	long lDate = dateFormat.getTime();
 	Timestamp ts = new Timestamp(lDate);
@@ -36,7 +39,7 @@
 
 	Statement st = con.createStatement();
 	//ResultSet rs;
-	int i = st.executeUpdate("insert into Auction(endDate, currPrice, Skin) values ('" + ts + "','" + price + "','" + skinId + "')");
+	int i = st.executeUpdate("insert into Auction(endDate, currPrice, Skin, seller) values ('" + ts + "','" + price + "','" + skinId + "','" + seller + "')");
 	if (i > 0) {
 		//session.setAttribute("userid", user);
 		response.sendRedirect("welcome.jsp");

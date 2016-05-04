@@ -27,6 +27,7 @@ if (userid.equals("admin")) {
 rs = st.executeQuery("select * from User u where u.username='" + userid + "' and u.password='" + pwd + "'");
 if (rs.next()) {
 	session.setAttribute("userid", userid);
+	session.setAttribute("id", rs.getString("userid"));
 	//out.println("welcome " + userid);
 	//out.println("<a href='logout.jsp'>Log out</a>");
 	response.sendRedirect("success.jsp");
