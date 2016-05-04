@@ -33,7 +33,7 @@
 	rs = st.executeQuery("SELECT NOW(), endDate FROM Auction WHERE aid=" + aid + ";");
 	if (rs.next() && rs.getDate("NOW()").after(rs.getDate("endDate"))) {
 		out.write("This auction has already closed.");
-		out.write("<a href=success.jsp" + aid + ">Go back to home</a>");
+		out.write("<a href=success.jsp>Go back to home</a>");
 		return;
 	}
 	int i = st.executeUpdate("insert into Bid(bidder, time, price, higherBidAlert, aid) values ("
