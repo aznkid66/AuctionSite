@@ -26,6 +26,17 @@ public class Auction {
 		return currentPrice;
 	}
 	
+	public boolean isAuctionClosed(Timestamp now) {
+		long milliseconds1 = now.getTime();
+		long milliseconds2 = endDate.getTime();
+
+		long diff = milliseconds2 - milliseconds1;
+		if (diff <= 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void setCurrPrice(double currPrice) {
 		currentPrice = currPrice;
 	}

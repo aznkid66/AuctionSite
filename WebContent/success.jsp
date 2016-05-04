@@ -34,6 +34,7 @@
 				<option value="7">Time (Ending Soon)</option>
 				<option value="8">Time (Newly Listed)</option>
 			</select>
+			<button></button>
 		</tr>
 		<tr> 
 			<th>Skin Name</th> 
@@ -45,7 +46,7 @@
 		<% 
 		
 		//int valu = Integer.parseInt(val);
-		LinkedList<Auction> listOfAuctions =dao.getOpenAuctions();
+		LinkedList<Auction> listOfAuctions =dao.getAuctions();
 		 
 		 %>
 		

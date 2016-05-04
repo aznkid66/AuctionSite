@@ -91,12 +91,38 @@ public class ApplicationDAO {
 		return listOfAuctions;
 	}
 	
-public LinkedList<Auction> getOpenAuctions() throws SQLException{
+	public LinkedList<Auction> getOpenAuctions() throws SQLException{
 		
 		LinkedList<Auction> listOfAuctions = new LinkedList<Auction>();
 		
 		//display all tuples
 		String selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0;";
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery(); 
+		
+		//creating a ResultSet
+		while(rs.next( )) {
+			//System.out.println("row : id = " + rs.getInt("AId") + ", first name = " + rs.getString("FirstName") );
+			resLength++;
+			listOfAuctions.add(new Auction(rs.getInt("Aid"),rs.getInt("Skin"), rs.getInt("Seller"), rs.getTimestamp("endDate"), rs.getDouble("currPrice")));
+		}
+		System.out.println("Select statement executed, " + resLength + " rows retrieved");
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		
+		return listOfAuctions;
+	}
+	
+	public LinkedList<Auction> getClosedAuctions() throws SQLException{
+		
+		LinkedList<Auction> listOfAuctions = new LinkedList<Auction>();
+		
+		//display all tuples
+		String selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) < 0;";
 		Connection dbConnection = getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
 		int resLength = 0;
@@ -199,6 +225,28 @@ public LinkedList<Auction> getOpenAuctions() throws SQLException{
 		}
 		
 		return t;
+	}
+	
+	public User getWinner(int auctionID) throws SQLException {
+		User u = null;
+		String selectString = "select u.* from Bid b, User u where b.aid= " + auctionID 
+				+ " and b.bidder=u.userid group by b.price desc limit 1";
+		
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery(); 
+		
+		while(rs.next()) {
+			resLength++;
+			u = new User(rs.getInt("userid"), rs.getString("username"), rs.getString("email"));
+		}
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		
+		return u;
 	}
 	
 	
