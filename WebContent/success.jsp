@@ -37,7 +37,7 @@
 		</tr>
 		<tr> 
 			<th>Skin Name</th> 
-			<th>User</th> 
+			<th>Seller</th> 
 			<th>Current Bid</th>
 			<th>Time Remaining</th>
 			
