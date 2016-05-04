@@ -11,7 +11,6 @@
 											"root", "BecauseCBC2");
 	Statement st = con.createStatement();
 	ResultSet rs;
-	rs = st.executeQuery("SELECT currPrice FROM Auction WHERE aid=" + aid + ";");
 	try {
 		Double.parseDouble(bidAmount);
 	} catch (NumberFormatException e) {
@@ -19,6 +18,7 @@
 		out.write("<a href=bidonauclayout.jsp?auction=" + aid + ">Try again</a>");
 		return;
 	}
+	rs = st.executeQuery("SELECT currPrice FROM Auction WHERE aid=" + aid + ";");
 	if (rs.next() && Double.parseDouble(bidAmount)<=rs.getDouble(1)) {
 		out.write("Bid failed. Bid too low.");
 		out.write("<a href=bidonauclayout.jsp?auction=" + aid + ">Try again</a>");
@@ -28,6 +28,12 @@
 			((Auction)session.getAttribute("auction")).getSellerId()) {
 		out.write("You can't bid on your own auction!");
 		out.write("<a href=bidonauclayout.jsp?auction=" + aid + ">Try again</a>");
+		return;
+	}
+	rs = st.executeQuery("SELECT NOW(), endDate FROM Auction WHERE aid=" + aid + ";");
+	if (rs.next() && rs.getDate("NOW()").after(rs.getDate("endDate"))) {
+		out.write("This auction has already closed.");
+		out.write("<a href=success.jsp" + aid + ">Go back to home</a>");
 		return;
 	}
 	int i = st.executeUpdate("insert into Bid(bidder, time, price, higherBidAlert, aid) values ("
