@@ -48,6 +48,7 @@
 		//int valu = Integer.parseInt(val);
 		LinkedList<Auction> listOfOpenAuctions =dao.getOpenAuctions();
 		LinkedList<Auction> listOfClosedAuctions = dao.getClosedAuctions();
+		//LinkedList<OutBidAlert> alerts = dao.getOutBidAlerts(userId);
 		 
 		 %>
 		
@@ -84,6 +85,9 @@
 		<%} %> 
 		<tr>
 			<th>Auction</th>
+		</tr>
+		<tr>
+			<th>Questions</th>
 		</tr>
 		
 	</table> 
