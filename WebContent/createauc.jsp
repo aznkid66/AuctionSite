@@ -1,4 +1,5 @@
 <%@ page import ="java.sql.*" %>
+<%@ page import ="java.text.*" %>
 <%
 	//String skinName = request.getParameter("skinName");
 	//String champName = request.getParameter("champName");
@@ -9,15 +10,21 @@
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDB",
 												"root", "BecauseCBC2");
-	String[] splitDate = endDate.split("-");
-	int year = Integer.valueOf(splitDate[0]);
-	int month = Integer.valueOf(splitDate[1]);
-	int day = Integer.valueOf(splitDate[2]);
+	String dateTime = endDate + " " + endTime;
+	SimpleDateFormat sdf = new SimpleDateFormat("YYYY/mm/dd HH:mm");
+	java.util.Date dateFormat = sdf.parse(dateTime);
+	long lDate = dateFormat.getTime();
+	Timestamp ts = new Timestamp(lDate);
+	//String[] splitDate = endDate.split("-");
+	//int year = Integer.valueOf(splitDate[0]);
+	//int month = Integer.valueOf(splitDate[1]);
+	//int day = Integer.valueOf(splitDate[2]);
 	
-	String[] splitTime = endTime.split(":");
-	int hours = Integer.valueOf(splitTime[0]);
-	int minutes = Integer.valeOf(splitTime[1]);
-	Timestamp endD = Timestamp(year, month, day, hours, minutes);
+	//String[] splitTime = endTime.split(":");
+	//int hours = Integer.valueOf(splitTime[0]);
+	//int minutes = Integer.valueOf(splitTime[1]);
+	//Timestamp endD = new Timestamp(year, month, day, hours, minutes);
+	
 	
 	
 	//Statement stmt = con.createStatement();
@@ -29,7 +36,7 @@
 
 	Statement st = con.createStatement();
 	//ResultSet rs;
-	int i = st.executeUpdate("insert into Auction(endDate, currPrice, Skin) values ('" + endD + "','" + price + "','" + skinId + "')");
+	int i = st.executeUpdate("insert into Auction(endDate, currPrice, Skin) values ('" + ts + "','" + price + "','" + skinId + "')");
 	if (i > 0) {
 		//session.setAttribute("userid", user);
 		response.sendRedirect("welcome.jsp");
