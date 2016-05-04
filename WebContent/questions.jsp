@@ -7,6 +7,7 @@
 		<%	ApplicationDAO dao = new ApplicationDAO(); %>
 		<%
 								Auction auction = null;
+								boolean isClosed = false;
 								for (Auction a : dao.getAuctions()) {
 									if (null==request.getParameter("auction")) {
 										response.sendRedirect("success.jsp");
@@ -21,7 +22,16 @@
 								}
 								if (null==auction) {
 									response.sendRedirect("success.jsp");
-								} %>
+								}
+								Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDB",
+										"root", "BecauseCBC2");
+								Statement st = con.createStatement();
+								ResultSet rs;
+								rs = st.executeQuery("SELECT NOW(), endDate FROM Auction WHERE aid=" + auction.getAuctionId() + ";");
+								if (rs.next() && rs.getDate("NOW()").after(rs.getDate("endDate"))) {
+									isClosed = true;
+								}
+	%>
 		
     </head>
 	<body>
@@ -33,6 +43,13 @@ You are not logged in<br/>
 <%} else {
 %>
 	<table>
+		<tr> 
+			<th>Skin Name</th> 
+			<th>Seller</th> 
+			<th>Current Bid</th>
+			<th><%= (isClosed)? "Winner" : "Time Remaining" %></th>
+			
+		</tr>
 		<%	Skin s = dao.getSkin(auction.getSkinId()); 
 			User u = dao.getUser(auction.getSellerId());
 			NumberFormat formatter = new DecimalFormat("#0.00"); %>
@@ -41,7 +58,7 @@ You are not logged in<br/>
 					<%= s.getName() %></a></td> 
 			<td><%= u.getUsername() %> </td>			
 			<td><%= formatter.format(auction.getCurrPrice()) %>
-			<td><%= auction.getTimeDifference(dao.getNOW()) %>
+			<td><%= (isClosed)? (null==dao.getWinner(auction.getAuctionId())? "N/A" : dao.getWinner(auction.getAuctionId()).getUsername()) : auction.getTimeDifference(dao.getNOW()) %>
 		</tr>
 		</table>
 
