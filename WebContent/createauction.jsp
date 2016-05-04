@@ -40,19 +40,21 @@
 					</td>
 					</tr>
                     <tr>
-                        <td>Starting Price</td>
-                        <td><input type="text" name="price" value="" /></td>
+                        <td>Starting Price</td>              
+							<td> <input type="number" name="dollars" min="0" max="99"  placeholder="Dollars">
+								<input type="number" name="cents" min="0" max="99"  placeholder="Cents">
+							</td>
                     </tr>
 					<tr>
 					<td> End Date </td>
 					<td>
-  						<input type="date" name="endDate">
+  						<input type="text" name="endDate"  placeholder="YYYY-MM-DD">
   					</td>
   					</tr>
   					<tr>
   					<td> Time </td>
   					<td>
-  						 <input type="time" name="endTime">
+  						 <input type="text" name="endTime"  placeholder="HH:MM">
 					</td>
                     </tr>
                     <tr>

@@ -8,7 +8,7 @@
 	String skinId = request.getParameter("auctionSkin");
 	String endDate = request.getParameter("endDate");
 	String endTime = request.getParameter("endTime");
-	String price = request.getParameter("price");
+	String price = request.getParameter("dollars") + "." + request.getParameter("cents");
 	String seller = (String)session.getAttribute("id");
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDB",
@@ -18,6 +18,7 @@
 	java.util.Date dateFormat = sdf.parse(dateTime);
 	long lDate = dateFormat.getTime();
 	Timestamp ts = new Timestamp(lDate);
+	
 	//String[] splitDate = endDate.split("-");
 	//int year = Integer.valueOf(splitDate[0]);
 	//int month = Integer.valueOf(splitDate[1]);
@@ -42,9 +43,9 @@
 	int i = st.executeUpdate("insert into Auction(endDate, currPrice, Skin, seller) values ('" + ts + "','" + price + "','" + skinId + "','" + seller + "')");
 	if (i > 0) {
 		//session.setAttribute("userid", user);
-		response.sendRedirect("welcome.jsp");
+		response.sendRedirect("success.jsp");
 		// out.print("Registration Successfull!"+"<a href='index.jsp'>Go to Login</a>");
 	} else {
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("createauction.jsp");
 	}
 %>
