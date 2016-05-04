@@ -44,7 +44,7 @@
 		</tr> 
 		<% String val = request.getParameter("sortBy");
 		int valu = Integer.parseInt(val);
-		<% LinkedList<Auction> listOfAuctions =dao.getAuctions();%>
+		 LinkedList<Auction> listOfAuctions =dao.getAuctions();%>
 		
 		<% for (int i=0; i<listOfAuctions.size();i++){ 
 			Skin s = dao.getSkin(listOfAuctions.get(i).getSkinId()); 

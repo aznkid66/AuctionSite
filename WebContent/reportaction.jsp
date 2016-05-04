@@ -97,7 +97,7 @@
 		  				+ "WHERE u.userid = b.bidder "
 		  				+ "AND b.aid IN ( "
 		  				+ "		SELECT aid FROM AUCTION "
-		  				+ "		WHERE TIMESTAMPDIFF(Second, NOW(), endDate) < 0)) "
+		  				+ "		WHERE TIMESTAMPDIFF(Second, NOW(), endDate) < 0) "
 		  				+ "GROUP BY u.userid "
 		  				+ "ORDER BY SUM(currPrice) DESC " 
 		  				+ "LIMIT 3;");
