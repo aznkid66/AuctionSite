@@ -46,20 +46,40 @@
 		<% 
 		
 		//int valu = Integer.parseInt(val);
-		LinkedList<Auction> listOfAuctions =dao.getAuctions();
+		LinkedList<Auction> listOfOpenAuctions =dao.getOpenAuctions();
+		LinkedList<Auction> listOfClosedAuctions = dao.getClosedAuctions();
 		 
 		 %>
 		
-		<% for (int i=0; i<listOfAuctions.size();i++){ 
-			Skin s = dao.getSkin(listOfAuctions.get(i).getSkinId()); 
-			User u = dao.getUser(listOfAuctions.get(i).getSellerId());
+		<% for (int i=0; i<listOfOpenAuctions.size();i++){ 
+			Skin s = dao.getSkin(listOfOpenAuctions.get(i).getSkinId()); 
+			User u = dao.getUser(listOfOpenAuctions.get(i).getSellerId());
 			NumberFormat formatter = new DecimalFormat("#0.00"); %>
 		<tr> 
-			<td><a href="bidonauclayout.jsp?auction=<%= listOfAuctions.get(i).getAuctionId() %>" >
+			<td><a href="bidonauclayout.jsp?auction=<%= listOfOpenAuctions.get(i).getAuctionId() %>" >
 					<%= s.getName() %></a></td> 
 			<td><%= u.getUsername() %> </td>			
-			<td><%= formatter.format(listOfAuctions.get(i).getCurrPrice()) %>
-			<td><%= listOfAuctions.get(i).getTimeDifference(dao.getNOW()) %>
+			<td><%= formatter.format(listOfOpenAuctions.get(i).getCurrPrice()) %>
+			<td><%= listOfOpenAuctions.get(i).getTimeDifference(dao.getNOW()) %>
+		</tr>
+		<% } %>
+				<tr> 
+			<th>Skin Name</th> 
+			<th>Seller</th> 
+			<th>Winning Bid</th>
+			<th>Winner</th>
+			
+		</tr> 
+		<% for (int i = 0; i<listOfClosedAuctions.size();i++){ 
+			Skin s = dao.getSkin(listOfClosedAuctions.get(i).getSkinId()); 
+			User u = dao.getUser(listOfClosedAuctions.get(i).getSellerId());
+			NumberFormat formatter = new DecimalFormat("#0.00"); %>
+		<tr> 
+			<td><a href="winner.jsp?auction=<%= listOfClosedAuctions.get(i).getAuctionId() %>" >
+					<%= s.getName() %></a></td> 
+			<td><%= u.getUsername() %> </td>			
+			<td><%= formatter.format(listOfClosedAuctions.get(i).getCurrPrice()) %>
+			<td><%= (null==dao.getWinner(listOfClosedAuctions.get(i).getAuctionId())? "N/A" : dao.getWinner(listOfClosedAuctions.get(i).getAuctionId()).getUsername()) %>
 		</tr>
 		<%} %> 
 	</table> 

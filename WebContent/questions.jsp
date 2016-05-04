@@ -46,7 +46,7 @@ You are not logged in<br/>
 		<tr> 
 			<th>Skin Name</th> 
 			<th>Seller</th> 
-			<th>Current Bid</th>
+			<th><%= (isClosed)? "Winning Bid" : "Current Bid"%></th>
 			<th><%= (isClosed)? "Winner" : "Time Remaining" %></th>
 			
 		</tr>
