@@ -14,10 +14,11 @@
 	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDB",
 												"root", "BecauseCBC2");
 	String dateTime = endDate + " " + endTime;
-	SimpleDateFormat sdf = new SimpleDateFormat("YYYY-mm-dd HH:mm");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	java.util.Date dateFormat = sdf.parse(dateTime);
 	long lDate = dateFormat.getTime();
 	Timestamp ts = new Timestamp(lDate);
+	System.out.println(ts.toString());
 	
 	//String[] splitDate = endDate.split("-");
 	//int year = Integer.valueOf(splitDate[0]);
