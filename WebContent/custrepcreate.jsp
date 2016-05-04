@@ -8,7 +8,7 @@
 												"root", "BecauseCBC2");
 	Statement st = con.createStatement();
 	//ResultSet rs;
-	int i = st.executeUpdate("insert into customerrep(email, username, password) values ('" + email + "','" + user + "','" + pwd + "')");
+	int i = st.executeUpdate("insert into CustomerRep(email, username, password) values ('" + email + "','" + user + "','" + pwd + "')");
 	if (i > 0) {
 		//session.setAttribute("userid", user);
 		response.sendRedirect("welcome.jsp");

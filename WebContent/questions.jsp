@@ -35,6 +35,7 @@
 		
     </head>
 	<body>
+		THERE SHOULD BE NO LINKS TO THIS PAGE <br>
 <%
 	if ((session.getAttribute("userid") == null) || (session.getAttribute("userid") == "")) {
 %>
