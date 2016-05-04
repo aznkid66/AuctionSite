@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="com.cs336.pkg.*" import ="java.util.*" import="java.text.*" import="java.sql.*"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Home</title>
 </head>
 <body>
 	<%
@@ -18,7 +18,7 @@
 	<%
 		}
 	%>
-	<h1>Welcome to jsp!</h1>
+	<h1>Welcome to League Of Legends Skins Auction Site!</h1>
 	<hr/>
 	<% ApplicationDAO dao = new ApplicationDAO();%>	
 	
@@ -34,7 +34,7 @@
 				<option value="7">Time (Ending Soon)</option>
 				<option value="8">Time (Newly Listed)</option>
 			</select>
-			<button></button>
+			<button>Sort</button>
 		</tr>
 		<tr> 
 			<th>Skin Name</th> 
@@ -83,9 +83,9 @@
 			<td><%= (null==dao.getWinner(listOfClosedAuctions.get(i).getAuctionId())? "N/A" : dao.getWinner(listOfClosedAuctions.get(i).getAuctionId()).getUsername()) %>
 		</tr>
 		<%} %> 
-		<tr>
+		<!-- <tr>
 			<th>Auction</th>
-		</tr>
+		</tr> -->
 		<tr>
 			<th>Questions</th>
 		</tr>
