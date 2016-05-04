@@ -10,6 +10,6 @@
 <body>
 <% ApplicationDAO dao = new ApplicationDAO();
 int auctionID = Integer.parseInt(request.getParameter("auction")); %>
-<a> Winner: <%=dao.getWinner(auctionID).getUsername() %></a>
+<a> Winner: <%=(null==dao.getWinner(auctionID)? "N/A" : dao.getWinner(auctionID).getUsername()) %></a>
 </body>
 </html>
