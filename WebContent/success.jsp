@@ -22,6 +22,18 @@
 	<hr/>
 	<% ApplicationDAO dao = new ApplicationDAO();%>	
 	<table> 
+		<tr>
+			<select id="sortBy">
+				<option value="1">Current Price (High to Low)</option>
+				<option value="2">Current Price (Low to High)</option>
+				<option value="3">Skins (A to Z)</option>
+				<option value="4">Skins (Z to A)</option>
+				<option value="5">Sellers (A to Z)</option>
+				<option value="6">Sellers (Z to A)</option>
+				<option value="7">Time (Ending Soon)</option>
+				<option value="8">Time (Newly Listed)</option>
+			</select>
+		</tr>
 		<tr> 
 			<th>Skin Name</th> 
 			<th>User</th> 
