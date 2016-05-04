@@ -14,6 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
+					<tr>
 					<select id = "auctionSkin">
 						<option value=1> Justicar Aatrox </option>
 						<option value=2> Mecha Aatrox </option>
@@ -40,13 +41,18 @@
 						<option value=23> Project Leona </option>
 						<option value=24> Mecha Kha Zix </option>
 					</select>
+					</tr>
                     <tr>
                         <td>Starting Price</td>
                         <td><input type="text" name="price" value="" /></td>
                     </tr>
 					<tr>
-                        <td>End Date</td>
-                        <td><input type="text" name="endDate" value="" /></td>
+                        <form>
+ 						 End Date
+  						<input type="date" name="endDate">
+  						 Time
+  						 <input type="time" name="endTime">
+						</form>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Submit" /></td>
