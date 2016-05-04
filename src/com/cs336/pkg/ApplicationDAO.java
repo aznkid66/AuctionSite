@@ -91,6 +91,32 @@ public class ApplicationDAO {
 		return listOfAuctions;
 	}
 	
+public LinkedList<Auction> getOpenAuctions() throws SQLException{
+		
+		LinkedList<Auction> listOfAuctions = new LinkedList<Auction>();
+		
+		//display all tuples
+		String selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0;";
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery(); 
+		
+		//creating a ResultSet
+		while(rs.next( )) {
+			//System.out.println("row : id = " + rs.getInt("AId") + ", first name = " + rs.getString("FirstName") );
+			resLength++;
+			listOfAuctions.add(new Auction(rs.getInt("Aid"),rs.getInt("Skin"), rs.getInt("Seller"), rs.getTimestamp("endDate"), rs.getDouble("currPrice")));
+		}
+		System.out.println("Select statement executed, " + resLength + " rows retrieved");
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		
+		return listOfAuctions;
+	}
+	
 	public Skin getSkin(int skinId) throws SQLException{ 
 		Skin s = null;
 		String selectString = "select * from Skin s where s.Sid = " + skinId + ";";

@@ -45,7 +45,7 @@
 		<% 
 		
 		//int valu = Integer.parseInt(val);
-		LinkedList<Auction> listOfAuctions =dao.getAuctions();
+		LinkedList<Auction> listOfAuctions =dao.getOpenAuctions();
 		 
 		 %>
 		
