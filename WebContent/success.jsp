@@ -82,6 +82,10 @@
 			<td><%= (null==dao.getWinner(listOfClosedAuctions.get(i).getAuctionId())? "N/A" : dao.getWinner(listOfClosedAuctions.get(i).getAuctionId()).getUsername()) %>
 		</tr>
 		<%} %> 
+		<tr>
+			<th>Auction</th>
+		</tr>
+		
 	</table> 
 	
 	
