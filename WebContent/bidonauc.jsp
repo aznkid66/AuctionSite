@@ -1,6 +1,7 @@
 <%@ page import ="java.sql.*" %>
 <%@ page import ="java.text.*" %>
 <%@ page import ="java.util.*" %>
+<%@ page import ="com.cs336.pkg.*"%>
 <%@ page import ="java.lang.NumberFormatException" %>
 <%
 	String aid = (String)session.getAttribute("aid");
@@ -20,6 +21,12 @@
 	}
 	if (rs.next() && Double.parseDouble(bidAmount)<=rs.getDouble(1)) {
 		out.write("Bid failed. Bid too low.");
+		out.write("<a href=bidonauclayout.jsp?auction=" + aid + ">Try again</a>");
+		return;
+	}
+	if (Integer.parseInt((String)session.getAttribute("id"))==
+			((Auction)session.getAttribute("auction")).getSellerId()) {
+		out.write("You can't bid on your own auction!");
 		out.write("<a href=bidonauclayout.jsp?auction=" + aid + ">Try again</a>");
 		return;
 	}

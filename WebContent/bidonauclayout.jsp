@@ -36,6 +36,7 @@
 									if (a.getAuctionId() == Integer.parseInt(request.getParameter("auction"))) {
 										auction = a;
 										session.setAttribute("aid", String.valueOf(a.getAuctionId()));
+										session.setAttribute("auction", a);
 										break;
 									}
 								}
@@ -62,7 +63,7 @@
 					</tr>
 					<tr>
 						<td>
-						<input type="number" name="bidAmount" min="0.00" max="100.00" step="0.01"  placeholder="0.00">
+						<input type="number" name="bidAmount" min="0.00" max="99.99" step="0.01"  placeholder="0.00">
 						</td>
 					</tr>
 					<tr>
