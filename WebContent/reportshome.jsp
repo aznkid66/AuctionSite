@@ -89,6 +89,6 @@
 		  <input type="radio" name="report_type" value="best_buyers"> Biggest spenders<br>
 		  <input type="submit" value="Go!" />
 		</form>
-		<br/>
+		<a href="admin.jsp">Back</a>
     </body>
 </html>
