@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sales Reports</title>
 		<script>
-			function test(select) {
+			function changeSelect2(select) {
 				var selectList = document.getElementsByTagName("select");
 				for (var i = 0; i<selectList.length; i++) {
 					selectList[i].style.display = "none";
@@ -30,7 +30,7 @@
 				Statement st = con.createStatement();
 				ResultSet rs;
 		  	%>
-		  	<select name="x" onchange="test(this)">
+		  	<select name="x_type" onchange="changeSelect2(this)">
 			  <option value="skin">Skin</option>
 			  <option value="rarity">Skin Rarity</option>
 			  <option value="champion">Champion</option>
@@ -86,7 +86,7 @@
 			</select>
 			<br>
 		  <input type="radio" name="report_type" value="best_selling"> Best-selling items<br>
-		  <input type="radio" name="report_type" value="best_buyers"> Best buyers
+		  <input type="radio" name="report_type" value="best_buyers"> Biggest spenders<br>
 		  <input type="submit" value="Go!" />
 		</form>
 		<br/>
