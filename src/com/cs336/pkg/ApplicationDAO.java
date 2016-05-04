@@ -92,11 +92,47 @@ public class ApplicationDAO {
 	}
 	
 	public LinkedList<Auction> getOpenAuctions() throws SQLException{
-		
+		int sortBy=0;
 		LinkedList<Auction> listOfAuctions = new LinkedList<Auction>();
+		String selectString = "";
+		
+		switch (sortBy) {
+		case 0:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0;";
+			break;
+		case 1:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0 order by currPrice desc";
+			break;
+		case 2:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0 order by currPrice";
+			break;
+		case 3:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0 order by (select s.name from "
+			+ " Skin s where s.sid=a.Skin)";
+			break;
+		case 4:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0 order by (select s.name from "
+					+ " Skin s where s.sid=a.Skin) desc";
+			break;
+		case 5:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0 order by (select u.username from "
+			+ "User u where u.userid=a.Seller)";
+			break;
+		case 6:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0 order by (select u.username from "
+					+ "User u where u.userid=a.Seller) desc";
+			break;
+		case 7:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0 order by endDate";
+			break;
+		case 8:
+			selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0 order by endDate desc";
+			break;
+
+		}
 		
 		//display all tuples
-		String selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0;";
+		//String selectString = "select * from Auction a where TIMESTAMPDIFF(SECOND, NOW(), a.endDate) > 0;";
 		Connection dbConnection = getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
 		int resLength = 0;
@@ -247,6 +283,29 @@ public class ApplicationDAO {
 		dbConnection.close();
 		
 		return u;
+	}
+	
+	public LinkedList<OutBidAlert> getOutBidAlerts(int userId) throws SQLException {
+		LinkedList<OutBidAlert> alerts = new LinkedList<OutBidAlert>();
+		String selectString = "select * from outBidAlerts al where al.uid=" + userId + ";";
+		
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery(); 
+		
+		//creating a ResultSet
+		while(rs.next( )) {
+			//System.out.println("row : id = " + rs.getInt("AId") + ", first name = " + rs.getString("FirstName") );
+			resLength++;
+			alerts.add(new OutBidAlert(userId,rs.getInt("aid"), rs.getInt("b_id")));
+		}
+		System.out.println("Select statement executed, " + resLength + " rows retrieved");
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		return alerts;
 	}
 	
 	
