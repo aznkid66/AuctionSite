@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.cs336.pkg.*" import ="java.util.*" import="java.text.*"%>
+    pageEncoding="UTF-8" import="com.cs336.pkg.*" import ="java.util.*" import="java.text.*" import="java.sql.*"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -87,6 +87,20 @@
 		</tr>
 		
 	</table> 
-	
+	<%
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/myDB",
+					"root", "BecauseCBC2");
+			Statement st = con.createStatement();
+			ResultSet rs;
+			rs = st.executeQuery("SELECT * FROM Question");
+			while (rs.next()) {
+				out.write("<a href=");
+				out.write('"' + "" + '"');
+				out.write(">");
+				out.write(rs.getString("content"));
+				out.write("</a><br>");
+			}
+	%>
+	<a href="questioncreate.jsp">New Question</a>
 	
 </body>

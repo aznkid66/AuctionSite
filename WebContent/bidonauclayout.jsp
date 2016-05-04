@@ -72,6 +72,6 @@
 				</tbody>
 			</table>
         </form>
-	<a href="questions.jsp?auction=<%= request.getParameter("auction") %>">Questions</a>
+	<!-- <a href="questions.jsp?auction=<%= request.getParameter("auction") %>">Questions</a>  -->
     </body>
 </html>

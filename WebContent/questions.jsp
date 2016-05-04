@@ -64,6 +64,14 @@ You are not logged in<br/>
 
 <%
 	}
+	rs = st.executeQuery("SELECT * FROM Question");
+	while (rs.next()) {
+		out.write("<a href=");
+		out.write('"' + "" + '"');
+		out.write(">");
+		out.write(rs.getString("content"));
+		out.write("</a><br>");
+	}
 %>
 
 	</body>
