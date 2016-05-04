@@ -95,9 +95,7 @@
 		  		out.write("Money spent by 3 biggest spenders:<br />");
 		  		rs = st.executeQuery("SELECT u.username, SUM(currPrice) FROM USER u, BID b, AUCTION a "
 		  				+ "WHERE u.userid = b.bidder "
-		  				+ "AND b.b_id IN ( "
-		  				+ "	SELECT h.b_id FROM HASBID h "
-		  				+ "	WHERE h.aid IN ( "
+		  				+ "AND b.aid IN ( "
 		  				+ "		SELECT aid FROM AUCTION "
 		  				+ "		WHERE TIMESTAMPDIFF(Second, NOW(), endDate) < 0)) "
 		  				+ "GROUP BY u.userid "

@@ -21,9 +21,10 @@
 	<h1>Welcome to jsp!</h1>
 	<hr/>
 	<% ApplicationDAO dao = new ApplicationDAO();%>	
+	
 	<table> 
 		<tr>
-			<select id="sortBy" onchange=>
+			<select id="sortBy">
 				<option value="1">Current Price (High to Low)</option>
 				<option value="2">Current Price (Low to High)</option>
 				<option value="3">Skins (A to Z)</option>
@@ -40,7 +41,9 @@
 			<th>Current Bid</th>
 			<th>Time Remaining</th>
 			
-		</tr> 	
+		</tr> 
+		<% String val = request.getParameter("sortBy");
+		int valu = Integer.parseInt(val);
 		<% LinkedList<Auction> listOfAuctions =dao.getAuctions();%>
 		
 		<% for (int i=0; i<listOfAuctions.size();i++){ 
