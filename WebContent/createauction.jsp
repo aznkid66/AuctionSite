@@ -10,11 +10,13 @@
             <table border="1" width="30%" cellpadding="5">
                 <thead>
                     <tr>
-                        <th colspan="2">Select a skin below</th>
+                        <th colspan="2">Fill Out Form</th>
                     </tr>
                 </thead>
                 <tbody>
 					<tr>
+					<td> Choose Skin></td>
+					<td>
 					<select id = "auctionSkin">
 						<option value=1> Justicar Aatrox </option>
 						<option value=2> Mecha Aatrox </option>
@@ -41,18 +43,27 @@
 						<option value=23> Project Leona </option>
 						<option value=24> Mecha Kha Zix </option>
 					</select>
+					</td>
 					</tr>
                     <tr>
                         <td>Starting Price</td>
                         <td><input type="text" name="price" value="" /></td>
                     </tr>
 					<tr>
+					<td> End Date </td>
+					<td>
                         <form>
- 						 End Date
   						<input type="date" name="endDate">
-  						 Time
+  						</form>
+  					</td>
+  					</tr>
+  					<tr>
+  					<td> Time <td>
+  					<td>
+  						<form>
   						 <input type="time" name="endTime">
 						</form>
+					</td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Submit" /></td>
