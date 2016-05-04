@@ -22,6 +22,14 @@ public class Auction {
 		return sellerId;
 	}
 	
+	public double getCurrPrice() {
+		return currentPrice;
+	}
+	
+	public void setCurrPrice(double currPrice) {
+		currentPrice = currPrice;
+	}
+	
 	public int getSkinId() {
 		return skinId;
 	}
